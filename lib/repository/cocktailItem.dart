@@ -1,0 +1,136 @@
+import 'package:flutter/material.dart';
+class CocktailItem{
+  Map<String, dynamic> data = {
+    "drinks": [
+      {
+        "idDrink": "11007",
+        "strDrink": "Margarita",
+        "strCategory": "Ordinary Drink",
+        "strAlcoholic": "Alcoholic",
+        "strGlass": "Cocktail glass",
+        "strInstructions": "Rub the rim of the glass with the lime slice to make the salt stick to it. Take care to moisten only the outer rim and sprinkle the salt on it. The salt should present to the lips of the imbiber and never mix into the cocktail. Shake the other ingredients with ice, then carefully pour into the glass.",
+        "strIngredient1": "Tequila",
+        "strIngredient2": "Triple sec",
+        "strIngredient3": "Lime juice",
+        "strIngredient4": "Salt",
+        "strMeasure1": "1 1\/2 oz ",
+        "strMeasure2": "1\/2 oz ",
+        "strMeasure3": "1 oz ",
+        "strImageSource": "assets/emptyGlass/Cocktail-Glass-Empty.jpeg",
+        "strImageAttribution": "Cocktailmarler",
+        "strCreativeCommonsConfirmed": "Yes",
+        "dateModified": "2015-08-18 14:42:59"
+      },
+      {
+        "idDrink": "11118",
+        "strDrink": "Blue Margarita",
+        "strCategory": "Ordinary Drink",
+        "strAlcoholic": "Alcoholic",
+        "strGlass": "Cocktail glass",
+        "strInstructions": "Rub rim of cocktail glass with lime juice. Dip rim in coarse salt. Shake tequila, blue curacao, and lime juice with ice, strain into the salt-rimmed glass, and serve.",
+        "strIngredient1": "Tequila",
+        "strIngredient2": "Blue Curacao",
+        "strIngredient3": "Lime juice",
+        "strIngredient4": "Salt",
+        "strMeasure1": "1 1\/2 oz ",
+        "strMeasure2": "1 oz ",
+        "strMeasure3": "1 oz ",
+        "strMeasure4": "Coarse ",
+        "strImageSource": "assets/emptyGlass/Cocktail-Glass-Empty.jpeg",
+        "strCreativeCommonsConfirmed": "Yes",
+        "dateModified": "2015-08-18 14:51:53"
+      },
+      {
+        "idDrink": "17216",
+        "strDrink": "Tommy's Margarita",
+        "strTags": "IBA,NewEra",
+        "strCategory": "Ordinary Drink",
+        "strIBA": "New Era Drinks",
+        "strAlcoholic": "Alcoholic",
+        "strGlass": "Old-Fashioned glass",
+        "strInstructions": "Shake and strain into a chilled cocktail glass.",
+        "strIngredient1": "Tequila",
+        "strIngredient2": "Lime Juice",
+        "strIngredient3": "Agave syrup",
+        "strMeasure1": "4.5 cl",
+        "strMeasure2": "1.5 cl",
+        "strMeasure3": "2 spoons",
+        "strImageSource": "assets/emptyGlass/Cocktail-Glass-Empty.jpeg",
+        "strCreativeCommonsConfirmed": "No",
+        "dateModified": "2017-09-02 18:37:54"
+      },
+      {
+        "idDrink": "16158",
+        "strDrink": "Whitecap Margarita",
+        "strCategory": "Other\/Unknown",
+        "strAlcoholic": "Alcoholic",
+        "strGlass": "Margarita\/Coupette glass",
+        "strInstructions": "Place all ingredients in a blender and blend until smooth. This makes one drink.",
+        "strIngredient1": "Ice",
+        "strIngredient2": "Tequila",
+        "strIngredient3": "Cream of coconut",
+        "strIngredient4": "Lime juice",
+        "strMeasure1": "1 cup ",
+        "strMeasure2": "2 oz ",
+        "strMeasure3": "1\/4 cup ",
+        "strMeasure4": "3 tblsp fresh ",
+        "strImageSource": "assets/emptyGlass/Cocktail-Glass-Empty.jpeg",
+        "strCreativeCommonsConfirmed": "No",
+        "dateModified": "2015-09-02 17:00:22"
+      },
+      {
+        "idDrink": "12322",
+        "strDrink": "Strawberry Margarita",
+        "strCategory": "Ordinary Drink",
+        "strAlcoholic": "Alcoholic",
+        "strGlass": "Cocktail glass",
+        "strInstructions": "Rub rim of cocktail glass with lemon juice and dip rim in salt. Shake schnapps, tequila, triple sec, lemon juice, and strawberries with ice, strain into the salt-rimmed glass, and serve.",
+        "strIngredient1": "Strawberry schnapps",
+        "strIngredient2": "Tequila",
+        "strIngredient3": "Triple sec",
+        "strIngredient4": "Lemon juice",
+        "strIngredient5": "Strawberries",
+        "strIngredient6": "Salt",
+        "strMeasure1": "1\/2 oz ",
+        "strMeasure2": "1 oz ",
+        "strMeasure3": "1\/2 oz ",
+        "strMeasure4": "1 oz ",
+        "strMeasure5": "1 oz ",
+        "strImageSource": "assets/emptyGlass/Cocktail-Glass-Empty.jpeg",
+        "strCreativeCommonsConfirmed": "No",
+        "dateModified": "2015-08-18 14:41:51"
+      },
+      {
+        "idDrink": "178332",
+        "strDrink": "Smashed Watermelon Margarita",
+        "strCategory": "Cocktail",
+        "strAlcoholic": "Alcoholic",
+        "strGlass": "Collins glass",
+        "strInstructions": "In a mason jar muddle the watermelon and 5 mint leaves together into a puree and strain. Next add the grapefruit juice, juice of half a lime and the tequila as well as some ice. Put a lid on the jar and shake. Pour into a glass and add more ice. Garnish with fresh mint and a small slice of watermelon.",
+        "strIngredient1": "Watermelon",
+        "strIngredient2": "Mint",
+        "strIngredient3": "Grapefruit Juice",
+        "strIngredient4": "Lime",
+        "strIngredient5": "Tequila",
+        "strIngredient6": "Watermelon",
+        "strIngredient7": "Mint",
+        "strMeasure1": "1\/2 cup",
+        "strMeasure2": "5",
+        "strMeasure3": "1\/3 Cup",
+        "strMeasure4": "Juice of 1\/2",
+        "strMeasure5": "1 shot",
+        "strMeasure6": "Garnish with",
+        "strMeasure7": "Garnish with",
+        "strImageSource": "assets/emptyGlass/Cocktail-Glass-Empty.jpeg",
+        "strCreativeCommonsConfirmed": "No",
+      }
+    ]
+  };
+  Future<List<Map<String, String>>> loadCocktailFromLocation() async {
+    //API통신  location값을 보내주면서
+    await Future.delayed(Duration(milliseconds: 500));
+    //throw Exception();
+    return data["drinks"];
+  }
+
+}
