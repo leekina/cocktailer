@@ -1,8 +1,9 @@
+import 'package:cocktailer_project/repository/cocktail_json.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class DetailCocktail extends StatefulWidget {
-  Map<String, String> data;
+  Cocktail data;
 
   DetailCocktail({Key? key, required this.data}) : super(key: key);
 
@@ -71,21 +72,33 @@ class _DetailCocktailState extends State<DetailCocktail> {
   }
 
   Widget _makeSliderimage() {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(height: 100),
-          Hero(
-            tag: widget.data["idDrink"]!,
-            child: Image.asset(
-              widget.data["strImageSource"]!,
-              height: 200,
-              width: 200,
-            ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(height: 100),
+        Hero(
+          tag: widget.data.id!,
+          child: Image.network(
+            "${widget.data.imageSource}",
+            errorBuilder: (context, error, stackTrace) {
+              return Container(
+                decoration: const BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                child: const SizedBox(
+                  height: 200,
+                  width: 200,
+                  child: Center(
+                      child: Text(
+                    "이미지 없음",
+                  )),
+                ),
+              );
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -99,17 +112,19 @@ class _DetailCocktailState extends State<DetailCocktail> {
 
   Widget _contentDetailName() {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            "${widget.data["strDrink"]}",
+            "${widget.data.engName}",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
           ),
-          SizedBox(height: 5,),
+          SizedBox(
+            height: 5,
+          ),
           Text(
-            "Glass : ${widget.data["strGlass"]}",
+            "Glass : ${widget.data.glass}",
             style: TextStyle(color: Colors.black, fontSize: 17),
           ),
         ],
@@ -132,48 +147,11 @@ class _DetailCocktailState extends State<DetailCocktail> {
             child: Column(
               children: [
                 Text(
-                  " ${widget.data["strInstructions"]}",
+                  " ${widget.data.cocktailDescription}",
                   style: TextStyle(color: Colors.black, fontSize: 17),
                 ),
               ],
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _contentDetailIngredientAndMeasure() {
-    int index = _measureItemCounter(widget.data);
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            "Ingredient",
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-          ),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            padding: const EdgeInsets.all(8.0),
-            itemCount: index,
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                padding: EdgeInsets.symmetric(vertical: 2),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      "${widget.data["strIngredient${index + 1}"]!} : ${widget.data["strMeasure${index + 1}"]}",
-                      style: TextStyle(fontSize: 17),
-                    ),
-                    _line(),
-                  ],
-                ),
-              );
-            },
           ),
         ],
       ),
@@ -190,7 +168,7 @@ class _DetailCocktailState extends State<DetailCocktail> {
               _makeSliderimage(),
               _contentDetailName(),
               //_line(),
-              _contentDetailIngredientAndMeasure(),
+              //_contentDetailIngredientAndMeasure(),
               //_line(),
               _contentDetailInstructions(),
               //_otherCellContents(),
@@ -209,14 +187,4 @@ class _DetailCocktailState extends State<DetailCocktail> {
       body: _bodyWidget(),
     );
   }
-}
-
-_measureItemCounter(Map<String, String> data) {
-  int count = 0;
-  int i = 1;
-  while (data["strIngredient${i}"] != null) {
-    i++;
-  }
-  count = i - 1;
-  return count;
 }

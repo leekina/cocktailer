@@ -152,7 +152,7 @@ class _UserInfoState extends State<UserInfo> {
       List result = dataConvertedToJSON;
       print(result);
       //5. 가져온 데이터를 리스트에 저장함
-      data.addAll(result);
+      //data.addAll(result);
     });
     return response.body;
   }
