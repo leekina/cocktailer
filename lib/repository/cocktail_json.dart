@@ -4,7 +4,7 @@ import 'dart:core';
 
 class Cocktail {
   String? id;
-  String? korName;
+  String? korName = "";
   String? engName;
   String? alcoholic;
   String? glass;
