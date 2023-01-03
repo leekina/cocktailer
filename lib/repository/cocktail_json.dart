@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'dart:core';
 
 class Cocktail {
-  String? id;
+  String id;
   String? korName = "";
-  String? engName;
+  String engName;
   String? alcoholic;
   String? glass;
   String? cocktailDescription;
@@ -35,7 +35,7 @@ class Cocktail {
   Cocktail({
     required this.id,
     this.korName,
-    this.engName,
+    required this.engName,
     this.alcoholic,
     this.cocktailDescription,
     this.glass,

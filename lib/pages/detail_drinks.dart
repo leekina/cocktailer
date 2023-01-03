@@ -77,7 +77,7 @@ class _DetailCocktailState extends State<DetailCocktail> {
       children: [
         SizedBox(height: 100),
         Hero(
-          tag: widget.data.id!,
+          tag: widget.data.id,
           child: Image.network(
             "${widget.data.imageSource}",
             errorBuilder: (context, error, stackTrace) {

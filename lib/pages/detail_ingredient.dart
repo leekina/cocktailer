@@ -1,9 +1,8 @@
-import 'package:carousel_slider/carousel_controller.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cocktailer_project/repository/ingredient_json.dart';
 import 'package:flutter/material.dart';
 
 class DetailIngredient extends StatefulWidget {
-  Map<String, String> data;
+  Ingredient data;
   DetailIngredient({Key? key, required this.data}) : super(key: key);
 
   @override
@@ -14,7 +13,7 @@ class _DetailIngredientState extends State<DetailIngredient> {
   late Size? size;
   double scrollpositionToAlpha = 0;
   ScrollController _controller = ScrollController();
-  late bool isMyFavoriteContent =false;
+  late bool isMyFavoriteContent = false;
 
   @override
   void initState() {
@@ -33,17 +32,6 @@ class _DetailIngredientState extends State<DetailIngredient> {
     });
   }
 
-  String _maketagStirng(Map<String, String> data){
-    String temp = "";
-    if(data["tag2"] != null){
-      temp = data["tag1"]! + ", " + data["tag2"]!;
-    }
-    else{
-      temp = data["tag1"]!;
-    }
-    return temp;
-  }
-
   PreferredSizeWidget _appbarWidget() {
     return AppBar(
       backgroundColor: Colors.white.withAlpha(scrollpositionToAlpha.toInt()),
@@ -53,7 +41,10 @@ class _DetailIngredientState extends State<DetailIngredient> {
         onPressed: () {
           Navigator.pop(context);
         },
-        icon: Icon(Icons.arrow_back_ios_new, color: Colors.black,),
+        icon: Icon(
+          Icons.arrow_back_ios_new,
+          color: Colors.black,
+        ),
       ),
       actions: [
         IconButton(
@@ -75,24 +66,39 @@ class _DetailIngredientState extends State<DetailIngredient> {
   }
 
   Widget _makeSliderimage() {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(height: 50),
-          Hero(
-            tag: widget.data["id"]!,
-            child: Image.asset(widget.data["imagePath"]!,height: 300,width: 200,),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(height: 100),
+        Hero(
+          tag: widget.data.id,
+          child: Image.network(
+            "${widget.data.imageSource}",
+            errorBuilder: (context, error, stackTrace) {
+              return Container(
+                decoration: const BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                child: const SizedBox(
+                  height: 200,
+                  width: 200,
+                  child: Center(
+                      child: Text(
+                    "이미지 없음",
+                  )),
+                ),
+              );
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
-  
   Widget _line() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
+      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
       height: 1,
       color: Colors.grey.withOpacity(0.3),
     );
@@ -105,28 +111,18 @@ class _DetailIngredientState extends State<DetailIngredient> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            "Tag : ${_maketagStirng(widget.data)}",
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: 17),
+            "Tag : ${widget.data.ingredientType}",
+            style: TextStyle(color: Colors.black, fontSize: 17),
           ),
           SizedBox(
             height: 15,
           ),
           Text(
-            "Alc : ${widget.data["alcohol"]}",
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: 17),
+            "Alc : ${widget.data.ingredientDescription}",
+            style: TextStyle(color: Colors.black, fontSize: 17),
           ),
           SizedBox(
             height: 20,
-          ),
-          Text(
-            "${widget.data["productDescription"]}",
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: 15),
           ),
         ],
       ),
@@ -143,11 +139,11 @@ class _DetailIngredientState extends State<DetailIngredient> {
             height: 20,
           ),
           Text(
-            "${widget.data["engName"]}",
+            "${widget.data.engName}",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
           Text(
-            "${widget.data["korName"]}",
+            "${widget.data.korName}",
             style: TextStyle(fontSize: 15),
           ),
           SizedBox(
@@ -157,7 +153,6 @@ class _DetailIngredientState extends State<DetailIngredient> {
       ),
     );
   }
-
 
   Widget _otherCellContents() {
     return Padding(
@@ -211,7 +206,8 @@ class _DetailIngredientState extends State<DetailIngredient> {
                     ),
                     Text(
                       "칵테일 이름",
-                      style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -224,7 +220,6 @@ class _DetailIngredientState extends State<DetailIngredient> {
       ],
     );
   }
-
 
   @override
   Widget build(BuildContext context) {

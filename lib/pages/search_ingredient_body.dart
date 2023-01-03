@@ -1,28 +1,25 @@
 import 'dart:async';
-
-import 'package:cocktailer_project/pages/detail_drinks.dart';
-import 'package:cocktailer_project/repository/cocktail_json.dart';
+import 'package:cocktailer_project/pages/detail_ingredient.dart';
+import 'package:cocktailer_project/repository/ingredient_json.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
-class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+class SearchIngredientScreen extends StatefulWidget {
+  const SearchIngredientScreen({super.key});
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  State<SearchIngredientScreen> createState() => _SearchIngredientScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _SearchIngredientScreenState extends State<SearchIngredientScreen> {
   final TextEditingController _filter = TextEditingController(); //검색 컨트롤러
   FocusNode focusNode = FocusNode(); //현재 커서가 있는지 없는지
   String _searchText = "";
-  late Future<List<Cocktail>> cocktail;
-  StreamController<List<Cocktail>> controller =
-      StreamController<List<Cocktail>>.broadcast();
-  late Stream<List<Cocktail>> searchCocktail = controller.stream;
+  late Future<List<Ingredient>> ingredient;
+  StreamController<List<Ingredient>> controller =
+      StreamController<List<Ingredient>>.broadcast();
+  late Stream<List<Ingredient>> searchIngredient = controller.stream;
 
-  _SearchScreenState() {
+  _SearchIngredientScreenState() {
     _filter.addListener(() {
       setState(() {
         _searchText = _filter.text;
@@ -33,15 +30,15 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
-    cocktail = getJSONData();
-    searchCocktail = Stream.fromFuture(cocktail);
+    ingredient = getIngredientJSONData();
+    searchIngredient = Stream.fromFuture(ingredient);
   }
 
 //검색위젯을 컨트롤하는 _filter가 변화를 감지하여 _searchText의 상태를 변화시키는 코드
 
   Widget _buildBody(BuildContext context) {
     return StreamBuilder(
-      stream: searchCocktail,
+      stream: searchIngredient,
       builder: ((context, dynamic snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
         return _buildList(context, snapshot.data);
@@ -49,17 +46,17 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  Widget _buildList(BuildContext context, List<Cocktail> snapshot) {
-    List<Cocktail> searchResult = [];
-    for (Cocktail d in snapshot) {
-      if (d.engName.toString().contains(_searchText)) {
+  Widget _buildList(BuildContext context, List<Ingredient> snapshot) {
+    List<Ingredient> searchResult = [];
+    for (Ingredient d in snapshot) {
+      if (d.engName.toLowerCase().toString().contains(_searchText)) {
         searchResult.add(d);
       }
     }
     return _makeDataList(searchResult);
   }
 
-  _makeDataList(List<Cocktail> datas) {
+  _makeDataList(List<Ingredient> datas) {
     return Expanded(
       child: ListView.separated(
         shrinkWrap: true,
@@ -71,7 +68,7 @@ class _SearchScreenState extends State<SearchScreen> {
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (BuildContext context) {
-                return DetailCocktail(
+                return DetailIngredient(
                   data: datas[index],
                 );
               }));
@@ -84,7 +81,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     //가장짜리 깎아주는거
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                     child: Hero(
-                      tag: datas[index].id!,
+                      tag: datas[index].id,
                       child: Image.network(
                         "${datas[index].imageSource}",
                         width: 100,
@@ -122,7 +119,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             height: 5,
                           ),
                           Text(
-                            datas[index].engName!,
+                            datas[index].engName,
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                             overflow: TextOverflow.ellipsis,
@@ -131,19 +128,12 @@ class _SearchScreenState extends State<SearchScreen> {
                             height: 5,
                           ),
                           Text(
-                            "${datas[index].korName}",
+                            datas[index].korName ?? "",
                             style: TextStyle(fontSize: 12, color: Colors.grey),
                             overflow: TextOverflow.ellipsis,
                           ),
                           SizedBox(
                             height: 20,
-                          ),
-                          Text(
-                            "${datas[index].ingredient1!}, ${datas[index].ingredient2!} ",
-                            style: TextStyle(
-                              fontSize: 15,
-                            ),
-                            overflow: TextOverflow.ellipsis,
                           ),
                         ],
                       ),
